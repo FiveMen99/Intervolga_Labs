@@ -1,0 +1,22 @@
+
+
+table{
+border-collapse: collapse;
+}
+td{
+width: 33%;
+padding: 10px;
+border-bottom: 1px solid black;
+border-top: 1px solid black;
+border-color: lightgray;
+}
+th{
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+padding: 10px;
+background-color: darkcyan;
+color: white;
+}
+.nikita{
+	color:red;
+}
