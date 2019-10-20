@@ -1,6 +1,6 @@
 <?php
-$a =$_POST['login'];
-$b =$_POST['parol'];
+$a =@$_POST['login'];
+$b =@$_POST['parol'];
 
 include("func.php");
 $a=safety_request($a);
