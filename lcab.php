@@ -118,50 +118,10 @@ background-size: 100%;	}
 
 
 <?php
-  include ("bd.php");
-  echo "<table><tr><th>Дата</th><th>Математика</th><th>Русский язык</th></tr>";    
- $result = $pdo->query('SELECT * FROM class');
-while($row=$result->fetch(PDO::FETCH_ASSOC)){
-  echo '<tr><th>'. $row['date'] . '</th><th>'. $row['matematics'] . '</th><th>'. $row['russich']. '</th></tr>';
-}
-  echo '<tr><th>  <form action="/laba/insertbd.php" method="post" class="form-signin">
-   
-    
-    <input  type="text" name="date"  placeholder="text" >
-    
-  </th>   
-            <th> 
-   
-    <input type="text" name="matematics" placeholder="text">
-    
-  </th>
-            <th>  
-   
-    <input type="text" name="russich" placeholder="text">
-    
-  </th>
-  </tr>
-  </table>
-
- <button class="btn btn-lg btn-primary btn-block" type="submit">Проверить тект на безопасность...
-  </button>
-
-  </form>   
-  '
-
-  
-
-
+include ("printbd.php");
 ?>
-
- 
-    
-
-
-<br></br>
-  
-   <form action="/laba/index.php" method="post" class="form-signin">
-  
+ <br></br>
+ <form action="/laba/index.php" method="post" class="form-signin">
   <button class="btn btn-lg btn-primary btn-block" type="submit">Выйти
   </button>
 </form>     
