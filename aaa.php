@@ -1,7 +1,7 @@
 <?php
 $a =@$_POST['login'];
 $b =@$_POST['parol'];
-
+include("bd.php");
 include("func.php");
 $a=safety_request($a);
 $b=safety_request($b);
@@ -32,4 +32,4 @@ fwrite($fd, $str);
 		}
 		
 	fclose($fd);
-?>
+?>.

@@ -8,10 +8,13 @@ echo $g;
 
 $id=5;
 $login=4;
+$date='01.08.2019';
 
-$st = $pdo->prepare('SELECT * FROM $user WHERE matematics=? AND russich=?');
-$st->execute([$id,$login]);
 
+$sql = 'INSERT INTO class(date,matematics,russich) VALUES(:date,:matematics,:russich)';
+$params= ['date' => $date, 'matematics' => $id, 'russich'=>$login];
+$stmt=$pdo->prepare($sql);
+$stmt->execute($params);
 
   ?>
 

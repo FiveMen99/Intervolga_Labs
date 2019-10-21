@@ -118,39 +118,44 @@ background-size: 100%;	}
 
 
 <?php
-  $user='nikita062499';
-  $password=12345;
-  $host='localhost';
-  $database='mybase';
-  $link = mysqli_connect($host, $user, $password, $database) 
-    or die("Ошибка " . mysqli_error($link)); 
-       $query ="SELECT * FROM class";
+  include ("bd.php");
+  echo "<table><tr><th>Дата</th><th>Математика</th><th>Русский язык</th></tr>";    
+ $result = $pdo->query('SELECT * FROM class');
+while($row=$result->fetch(PDO::FETCH_ASSOC)){
+  echo '<tr><th>'. $row['date'] . '</th><th>'. $row['matematics'] . '</th><th>'. $row['russich']. '</th></tr>';
+}
+  echo '<tr><th>  <form action="/laba/insertbd.php" method="post" class="form-signin">
+   
+    
+    <input  type="text" name="date"  placeholder="text" >
+    
+  </th>   
+            <th> 
+   
+    <input type="text" name="matematics" placeholder="text">
+    
+  </th>
+            <th>  
+   
+    <input type="text" name="russich" placeholder="text">
+    
+  </th>
+  </tr>
+  </table>
 
- 
-$result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
-    $rows = mysqli_num_rows($result); 
-     
-    echo "<table><tr><th>Дата</th><th>Математика</th><th>Русский язык</th></tr>";
-    for ($i = 0 ; $i < $rows ; ++$i)
-    {
-        $row = mysqli_fetch_row($result);
-        echo "<tr>";
-            for ($j = 0 ; $j < 3 ; ++$j) echo "<td>$row[$j]</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-          ?>
-<br></br>
-  <form action="/laba/text3nocji.php" method="post" class="form-signin">
-   <div class="form-label-group">
-    <input type="text" name="text" class="form-control" placeholder="text">
-    <label for="inputEmail">Email address</label>
-  </div>
-
-     <button class="btn btn-lg btn-primary btn-block" type="submit">Проверить тект на безопасность...
+ <button class="btn btn-lg btn-primary btn-block" type="submit">Проверить тект на безопасность...
   </button>
 
   </form>   
+  '
+
+  
+
+
+?>
+
+ 
+    
 
 
 <br></br>

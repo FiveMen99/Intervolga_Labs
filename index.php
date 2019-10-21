@@ -1,6 +1,7 @@
 <?php
 setcookie("login");
 setcookie("parol");
+include("bd.php");
 ?>
 
 <!doctype html>
@@ -101,7 +102,7 @@ background-size: 100%;	}
     <label for="inputPassword">Password</label>
   </div>
 
-   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in
+   <button class="btn btn-lg btn-primary btn-block" type="submit" name='signin'>Sign in
   </button>
   </form>     
         
