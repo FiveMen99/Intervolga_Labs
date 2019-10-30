@@ -28,12 +28,4 @@ $postinformation['history']=safety_request($postinformation['history']);
 		$stmt->execute($params);
 	}
  	header("Location: /laba/lcab.php");
-
-
-
-	
-
-
-
-
 ?>
