@@ -5,8 +5,6 @@ include("bd.php");
 include("func.php");
 $a=safety_request($a);
 $b=safety_request($b);
-
-
 $mass = array('login' => 'nikita062499',
                   'parol' => '123');
 
