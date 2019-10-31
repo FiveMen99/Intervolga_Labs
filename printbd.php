@@ -26,7 +26,11 @@ include ("bd.php");
    while($row=$result->fetch(PDO::FETCH_ASSOC))
    {
   $averageball=round(($row['matematics']+$row['russich']+$row['history'])/3,2);
-   echo '<tr><th>'. $row['date'] . '</th><th>'. $row['matematics'] . '</th><th>'. $row['russich']. '</th><th>'. $row['history']. '</th><th>'. $averageball. '</th></tr>';
+   echo '<tr><th>'. $row['date'] . '</th><th>'. $row['matematics'] . '</th><th>'. $row['russich']. '</th><th>'. $row['history']. '</th><th>'. $averageball. '</th></th><th>
+    <form action="/laba/insertbd.php" method="post" class="form-signin">
+    <button type="submit" id="button">Изменить данные </button>
+
+   </th></tr>';
    }
   echo'
   </table>
