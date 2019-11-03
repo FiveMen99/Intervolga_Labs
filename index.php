@@ -12,7 +12,7 @@ include("bd.php");
     <title>Учителя- это наше все</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
     <link href="/docs/4.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css" >
+    <link rel="stylesheet" type="text/css" href="style1.css" >
     <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
@@ -80,6 +80,7 @@ background-size: 100%;	}
 
      <button class="btn btn-lg btn-primary btn-block" type="submit" name='signin'>Sign in
      </button>
+     
      </form>     
      </div>
   

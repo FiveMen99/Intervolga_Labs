@@ -5,10 +5,6 @@
    var button=document.getElementById('button');
    let regexp = /([01-9])+\.([01-9])+\.([01-9]){4}/;
    let regexp1 = /([01-9]){1}/;
- 
-
-
-
 
    button.addEventListener('click', function(e)
    {

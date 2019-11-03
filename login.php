@@ -7,9 +7,6 @@ $a=safety_request($a);
 $b=safety_request($b);
 $mass = array('login' => 'nikita062499',
                   'parol' => '123');
-
-
-
 $fd = fopen("test.txt", 'w') or die("не удалось создать файл");
 $str = md5($b);
 
