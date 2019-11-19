@@ -3,7 +3,6 @@ table{
 border-collapse: collapse;
 }
 td{
-
 border-bottom: 1px solid black;
 border-top: 1px solid black;
 border-color: lightgray;
@@ -12,12 +11,22 @@ th{
 border-top: 1px solid black;
 border-bottom: 1px solid black;
 padding: 10px;
-background-color: darkcyan;
+background-color: rgba(60, 61, 74, 0.78);
 color: white;
 }
 
-.nikita{
+
+.red{
 	color:red;
+}
+.green{
+	color:#00FF00;
+}
+.yellow{
+	color:yellow;
+}
+.lightgreen{
+	color:lightgreen;
 }
 .margin{
 	margin-top: 20px;
