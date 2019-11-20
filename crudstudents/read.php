@@ -28,7 +28,7 @@ function printtable($pdo)
             echo '<div class="modal fade" id="id'.$i.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
-                      <img src="/laba/'.$file[$i].'" class="m-auto m-5" width="400" height="255">
+                      <img src="/laba/'.$file[$i].'" class="m-auto m-5">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>                    
                   </div>
               </div>

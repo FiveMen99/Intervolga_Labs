@@ -25,14 +25,20 @@ function delete($pdo,$idstud)
     $result = $pdo->prepare('DELETE FROM `students` WHERE idstud=:idstud');
     $result->execute(array('idstud' => $idstud));
 }
-function readbyidstud($pdo,$idstud)
+function readbyidstud1($pdo,$idstud)
 {
-    $result = $pdo->prepare('SELECT FROM `students` WHERE idstud=:idstud');
+    $result = $pdo->prepare('SELECT * FROM `students` WHERE idstud=:idstud');
     $result->execute(array('idstud' => $idstud));
     return $result;
 }
-function update($pdo,$idstud,$surname,$name,$lastname,$class)
+function update($pdo,$idstud,$surname,$name,$lastname,$class,$file)
 {
-    $stmt = $pdo->prepare('UPDATE `students` SET surname=:surname,name=:name,lastname=:lastname,class=:class WHERE idstud=:id');
-    $stmt->execute(array('id' => $idstud, 'surname' => $surname, 'name' => $name, 'lastname' => $lastname, 'class' => $class));
+    $result = $pdo->prepare('UPDATE `students` SET surname=:surname,name=:name,lastname=:lastname,class=:class,file=:file WHERE idstud=:id');
+    $result->execute(array('id' => $idstud, 'surname' => $surname, 'name' => $name, 'lastname' => $lastname, 'class' => $class,'file'=>$file));
+}
+function readbyfull1($pdo,$surname,$name,$lastname,$class)
+{
+    $result = $pdo->prepare('SELECT * FROM `students` WHERE surname=:surname AND name=:name AND lastname=:lastname AND class=:class');
+    $result->execute(array('surname' => $surname, 'name' => $name, 'lastname' => $lastname, 'class' => $class));
+    return $result;
 }

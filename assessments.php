@@ -47,6 +47,14 @@ background-size: 100%;	}
     @$idstud=@$_GET['idstud'];
     $result=readbyidstud($pdo,$idstud);
     printtableassigment($pdo,$idstud,$result);
+    if ((@$_GET['error'])==1)
+    {
+        echo '<div id="errors" style="color:red;">Данные об этом пользователе были уже удалены</div><hr>';
+    }
+    if ((@$_GET['error'])==2)
+    {
+        echo '<div id="errors" style="color:red;">Проверьте валидность данных</div><hr>';
+    }
     ?>
   </section>
     <form action="crudassessments/create.php" method="post" class="form-signin">
@@ -73,7 +81,7 @@ background-size: 100%;	}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button class="btn btn-primary" id="btn_click">Добавить</button>
+                        <button class="btn btn-primary" id="button">Добавить</button>
                     </div>
                 </div>
             </div>
@@ -99,11 +107,11 @@ background-size: 100%;	}
                             <option value="3">3</a></option>
                             <option value="2">2</a></option>
                         </select>
-                        <input type="text" class="form-control margin" id="date" name="date" placeholder="Дата" required>
+                        <input type="text" class="form-control margin" id="date1" name="date" placeholder="Дата" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button class="btn btn-primary" id="btn_click">Изменить</button>
+                        <button class="btn btn-primary" id="button1">Изменить</button>
                     </div>
                 </div>
             </div>
@@ -123,11 +131,11 @@ background-size: 100%;	}
                             selectsubject($result);
                             ?>
                         </select>
-                        <input type="text" class="form-control margin" id="date" name="date" placeholder="Дата" required>
+                        <input type="text" class="form-control margin" id="date2" name="date" placeholder="Дата" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button class="btn btn-primary" id="btn_click">Удалить</button>
+                        <button class="btn btn-primary" id="button2">Удалить</button>
                     </div>
                 </div>
             </div>
@@ -137,5 +145,6 @@ background-size: 100%;	}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="/laba/js/validation/date.js"></script>
 </body>
 </html>

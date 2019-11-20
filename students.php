@@ -45,8 +45,16 @@ background-size: 100%;	}
       <?php
       checkonadmin($_SESSION['isadmin']);
       printtable($pdo);
+      if ((@$_GET['error'])==1)
+      {
+         echo '<div id="errors" style="color:red;">Данные об этом пользователе были уже удалены</div><hr>';
+      }
+      if ((@$_GET['error'])==2)
+      {
+          echo '<div id="errors" style="color:red;">Проверьте валидность данных</div><hr>';
+      }
       ?>
-      <form action="crudstudents/update.php" method="post" class="form-signin">
+      <form action="crudstudents/update.php" method="post" class="form-signin" enctype="multipart/form-data">
           <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -60,15 +68,17 @@ background-size: 100%;	}
                               selectstudent($result);
                               ?>
                           </select>
-                          <input type="text" name="surname" class="form-control margin" placeholder="Новая Фамилия">
-                          <input type="text" name="name" class="form-control margin" placeholder="Новое Имя" >
-                          <input type="text" name="lastname" class="form-control margin" placeholder="Новое Отчество" >
-                          <input type="text" name="class" class="form-control margin" placeholder="Новый Класс" >
+                          <input type="text" name="surname" class="form-control margin" placeholder="Новая Фамилия" id="surname1">
+                          <input type="text" name="name" class="form-control margin" placeholder="Новое Имя" id="name1" >
+                          <input type="text" name="lastname" class="form-control margin" placeholder="Новое Отчество" id="lastname1">
+                          <input type="text" name="class" class="form-control margin" placeholder="Новый Класс" id="class1">
+                          <input class="margin" name="myfile" placeholder="Файл" type="file" id="file1">
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                          <button class="btn btn-primary" id="btn_click">Изменить</button>
+                          <button class="btn btn-primary" id="button1">Изменить</button>
                       </div>
+
                   </div>
               </div>
           </div>
@@ -82,16 +92,16 @@ background-size: 100%;	}
                       </div>
                       <div class="modal-body">
                           <div class="form-label-group margin">
-                              <input type="text" name="surnamec" class="form-control" placeholder="Фамилия">
+                              <input type="text" name="surnamec" class="form-control" placeholder="Фамилия" id="surname">
                           </div>
                           <div class="form-label-group">
-                              <input type="text" name="namec" class="form-control margin" placeholder="Имя">
+                              <input type="text" name="namec" class="form-control margin" placeholder="Имя" id="name">
                           </div>
                           <div class="form-label-groupc">
-                              <input type="text" name="lastnamec" class="form-control margin" placeholder="Отчество" >
+                              <input type="text" name="lastnamec" class="form-control margin" placeholder="Отчество" id="lastname" >
                           </div>
                           <div class="form-label-groupc">
-                              <input type="text" name="classc" class="form-control margin" placeholder="Класс" >
+                              <input type="text" name="classc" class="form-control margin" placeholder="Класс" id="class">
                           </div>
 
                               <input class="margin" name="myfile" placeholder="Файл" type="file">
@@ -99,7 +109,7 @@ background-size: 100%;	}
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                          <button class="btn btn-primary" id="btn_click">Добавить</button>
+                          <button class="btn btn-primary" id="button">Добавить</button>
                       </div>
                   </div>
               </div>
@@ -133,6 +143,7 @@ background-size: 100%;	}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="/laba/js/validation/fioc.js"></script>
+<script src="/laba/js/validation/fioc1.js"></script>
 </body>
 </html>
-

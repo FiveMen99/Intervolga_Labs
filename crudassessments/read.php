@@ -20,7 +20,7 @@ function printtableassigment($pdo,$idstud,$result)
     if (!empty($mass))
     {
         $mass = array_unique($mass);
-        //usort($mass, "sort_date");
+        usort($mass, "sort_date");
         $i = count($mass);
     }
     echo '

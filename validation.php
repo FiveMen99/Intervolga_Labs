@@ -22,5 +22,17 @@ function validation ($string,$type){
         else return 0;
 
     }
+    if($type=='date')
+    {
+        $length=strlen($string);
+        $regular='/([01-9])+\.([01-9])+\.([01-9]){4}/';
+        $regularcheck=preg_match($regular, $string);
+        if($length==10 &&$regularcheck==1)
+        {
+            return 1;
+        }
+        else return 0;
+
+    }
 }
 ?>
