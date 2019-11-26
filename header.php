@@ -10,7 +10,11 @@ echo'
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="students.php">Журнал Успеваемости <span class="sr-only">(current)</span></a>
+
       </li>   
+      <li class="nav-item active">
+        <a class="nav-link" href="testsafetyrequest.php">Защита запросов<span class="sr-only">(current)</span></a>
+      </li>
     </ul>';
 session_start();
 if(isset($_SESSION['id'])){

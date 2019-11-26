@@ -2,11 +2,13 @@
 include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/validation.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/table/assessmentstable.php";
-$select=$_POST['select'];
-$assessments=$_POST['assessments'];
-$date=$_POST['date'];
-$idstud=$_COOKIE['idstud'];
+include $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
+$select=safetyrequest($pdo,$_POST['select']);
+$assessments=safetyrequest($pdo,$_POST['assessments']);
+$date=safetyrequest($pdo,$_POST['date']);
+$idstud=safetyrequest($pdo,$_GET['idstud']);
 $check=validation($date,'date');
+
 if($check)
 {
     create1($pdo, $date, $idstud, $select, $assessments);
@@ -15,6 +17,6 @@ if($check)
 else
 {
 
-    header("Location: /laba/assessments.php?idstud=$idstud");
+   header("Location: /laba/assessments.php?idstud=$idstud");
 }
 ?>

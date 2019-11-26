@@ -1,4 +1,5 @@
-<?php require_once("authorizationcheckin.php");?>
+<?php
+require_once("authorizationcheckin.php");?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -32,25 +33,22 @@ background-size: 100%;	}
       <p class="lead text-muted">"Учиться надо всю жизнь, до последнего дыхания!"</p>
       </div>
 
-    <div class="container">     
-      <form action="/laba/signin.php" method="post" class="form-signin">
-        <div class="text-center mb-4">
-          <h1 class="h3 mb-3 font-weight-normal">Чтобы пользоваться услугами нашего сайта необходима авторизация!</h1>
-    </div>
+    <div class="container">
+        <form action="/laba/signin.php" method="post" class="form-signin">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Чтобы пользоваться услугами нашего сайта необходима авторизация!</h1>
+            </div>
+            <div class="form-label-group">
+              <input type="text" name="login" class="form-control" placeholder="Login" id="login">
+              <label for="inputEmail">Email address</label>
+            </div>
+            <div class="form-label-group">
+              <input type="Password" name="password" class="form-control" placeholder="Password" id="password" >
+              <label for="inputPassword">Password</label>
+            </div>
+             <button class="btn btn-lg btn-primary btn-block" type="submit" name='signin' id="button">Sign in
+             </button>
 
-    <div class="form-label-group">
-      <input type="text" name="login" class="form-control" placeholder="Login" id="login">
-      <label for="inputEmail">Email address</label>
-    </div>
-
-    <div class="form-label-group">
-      <input type="Password" name="password" class="form-control" placeholder="Password" id="password" >
-      <label for="inputPassword">Password</label>
-    </div>
-
-
-     <button class="btn btn-lg btn-primary btn-block" type="submit" name='signin' id="button">Sign in
-     </button>
 <?php
 if(!empty($_COOKIE['error']))
 {

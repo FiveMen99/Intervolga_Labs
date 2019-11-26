@@ -1,6 +1,7 @@
 <?php
 include("bd.php");
 include_once("table/userstable.php");
+include_once ("safetyrequest.php");
 include("validation.php");
 $validationlogin=validation($_POST['login'],'email');
 $validationpassword=validation($_POST['password'],'password');
@@ -20,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     if (isset($_POST['login']) && isset($_POST['password']))
     {
-        $login = $_POST['login'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $login = safetyrequest($pdo,$_POST['login']);
+        $password = password_hash(safetyrequest($pdo,$_POST['password']), PASSWORD_DEFAULT);
         $isadmin = 0;
         $result=readbylogin($pdo,$login);
         $row1 = $result->fetch(PDO::FETCH_ASSOC);

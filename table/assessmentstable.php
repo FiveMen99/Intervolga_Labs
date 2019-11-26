@@ -5,10 +5,10 @@ function readbyidstud($pdo,$idstud)//result
     $result->execute(array('idstud' => $idstud));
     return $result;
 }
-function readbyfull($pdo,$idstud,$idsub,$mass,$k)
+function readbyfull($pdo,$idstud,$idsub,$date)
 {
     $result = $pdo->prepare('SELECT * FROM `assessments` WHERE idstud=:idstud AND idsub=:idsub AND date=:date');
-    $result->execute(array('idstud' => $idstud, 'idsub' => $idsub, 'date' => $mass[$k]));
+    $result->execute(array('idstud' => $idstud, 'idsub' => $idsub, 'date' => $date));
     return $result;
 }
 function create1($pdo,$date,$idstud,$select,$assessments)

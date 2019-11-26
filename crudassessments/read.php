@@ -1,60 +1,112 @@
 <?php
-function sort_date($a_new, $b_new) {
-    $a_new = strtotime($a_new);
-    $b_new = strtotime($b_new);
-    return $a_new - $b_new;
-}
-function printtableassigment($pdo,$idstud,$result)
+require_once ("function.php");
+function printtableassigment($pdo,$idstud)
 {
-    setcookie("idstud", $idstud);
-    $idsub = 1;
-    $i = 0;
-    $j = 0;
-    $k = 0;
-    $amount = 3;
+    $date = getmydate($pdo, $idstud);
+    $subject=getmysubject($pdo);
+    if(!empty($date))
+    {
+        $lengthdate = count($date);
+    }
+    else $lengthdate=0;
+    $lengthsubject=count($subject);
+    $result=readbyidstud($pdo,$idstud);
+    $i=0;
+    //Цикл построения массива
     while ($row = $result->fetch(PDO::FETCH_ASSOC))
     {
-        $mass[$i] = $row['date'];
-        $i = $i + 1;
+        $idsubject=$row['idsub'];
+        $i=0;
+        while($i<$lengthdate)
+        {
+            if($date[$i]==$row['date'])
+            {
+                $iddate=$i;
+            }
+            $i++;
+        }
+        $mass[$idsubject][$iddate]=$row['assessments'];
+
     }
-    if (!empty($mass))
-    {
-        $mass = array_unique($mass);
-        usort($mass, "sort_date");
-        $i = count($mass);
-    }
+    //Рисуем перввую горизонталь с датами
     echo '
         <table>
             <tr>
                 <th>Дата</th>';
-    while ($j < $i)
+    $i=0;
+    while ($i < $lengthdate)
     {
-        echo '<th>' . $mass[$j] . '</th>';
-        $j = $j + 1;
+        echo '<th>' . $date[$i] . '</th>';
+        $i++;
     }
     echo '
                 <th>Средняя оценка</th>
             </tr>';
-    while ($idsub <= $amount)
+    $i=0;
+    $j=0;
+    while($i<$lengthsubject)
     {
+        $idsub=$i+1;
+        $idsub1=$idsub+1;
         $summ = 0;
         $quantity = 0;
-        $result1=readbyidsub($pdo,$idsub);
-        $row1 = $result1->fetch(PDO::FETCH_ASSOC);
-        echo '<tr><th>' . $row1['name'] . '</th>';
-        $k = 0;
-        while ($k < $i)
+        echo '<tr><th>' . $subject[$i] . '</th>';
+        $j=0;
+        while($j<$lengthdate)
         {
-            $result2=readbyfull($pdo,$idstud,$idsub,$mass,$k);
-            $row2 = $result2->fetch(PDO::FETCH_ASSOC);
-            if (is_numeric($row2['assessments']))
+            if(!empty($mass[$i+1][$j]))
             {
-                $summ = $summ + $row2['assessments'];
-                $quantity++;
+                //считаем средний балл
+                if (is_numeric($mass[$i+1][$j]))
+                {
+                    $summ = $summ + $mass[$i+1][$j];
+                    $quantity++;
+                }
+                //Если админ, то показываем Изменить и Удалить
+                if(checkonadmin($_SESSION['isadmin']))
+                {
+                        echo '
+                    <th><a class="edit" data-toggle="modal" data-target="#my' . $i . 'm' . $j . '"><img src="/laba/uploads/edit.png"  width="8"></a>
+                     <a class="center">' . $mass[$i + 1][$j] . '</a>    
+                      <a href="crudassessments/delete.php?idstud=' . $idstud . '&date=' . $date[$j] . '&subject=' . $idsub . '" class="cross"><img src="/laba/uploads/cross.png"  width="8"></a></th>
+                      <form action="crudassessments/update.php?idstud=' . $idstud . '&date=' . $date[$j] . '&subject=' . $idsub . '" method="post" class="form-signin">
+                            <div class="modal fade" id="my' . $i . 'm' . $j . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Изменить оценку</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <select name="assessments" class="form-control" >
+                                                <option value="5">5</a></option>
+                                                <option value="4">4</a></option>
+                                                <option value="3">3</a></option>
+                                                <option value="2">2</a></option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                                            <button class="btn btn-primary" id="button1">Изменить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </form>';
+                }
+                //Если не админ, то показываем оценку
+                else
+                {
+                    echo '<th><a class="center">' . $mass[$i + 1][$j] . '</a></th>';
+                }
             }
-            echo '<th>' . $row2['assessments'] . '</th>';
-            $k++;
+            //Если в массиве нет оценки выводим черточку
+            else
+            {
+                echo '<th><a>-</a></th>';
+            }
+            $j++;
         }
+        //Последний элеммент с средним баллом в горизонтале, если больше 4.5, то зеленым и.т.д
         if ($summ != 0)
         {
             $average = round($summ / $quantity, 2);
@@ -80,7 +132,8 @@ function printtableassigment($pdo,$idstud,$result)
         {
             echo '<th>' . $average . '</th></tr>';
         }
-        $idsub++;
+        $i++;
+        echo '</tr>';
     }
     echo '</table>';
 }

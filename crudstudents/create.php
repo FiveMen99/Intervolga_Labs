@@ -1,10 +1,11 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/table/studentstable.php";
-$surname =@$_POST['surnamec'];
-$name =@$_POST['namec'];
-$lastname =@$_POST['lastnamec'];
-$class=@$_POST['classc'];
+include $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
+$surname =safetyrequest($pdo,@$_POST['surnamec']);
+$name = safetyrequest($pdo,@$_POST['namec']);
+$lastname =safetyrequest($pdo,@$_POST['lastnamec']);
+$class=safetyrequest($pdo,@$_POST['classc']);
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/laba/uploads/");
 define("DB_DIR","uploads/");
 
@@ -27,6 +28,7 @@ if(!empty($name)&&!empty($surname)&&!empty($lastname))
             $namefile = $parts["filename"] . "_" . $i . "." . $parts["extension"];
         }
         $success = move_uploaded_file($myfile["tmp_name"], UPLOAD_DIR . $namefile);
+        chmod(UPLOAD_DIR . $namefile,0644);
         if (!$success)
         {
             echo "Сир что-то не так1";

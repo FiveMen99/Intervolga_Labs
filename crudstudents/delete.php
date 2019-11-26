@@ -1,7 +1,8 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/table/studentstable.php";
-$idstud =@$_POST['select'];
+include $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
+$idstud=safetyrequest($pdo,$_GET['idstud']);
 $result=readbyidstud1($pdo,$idstud);
 $row=$result->fetch(PDO::FETCH_ASSOC);
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/laba/");

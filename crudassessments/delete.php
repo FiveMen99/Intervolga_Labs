@@ -2,18 +2,11 @@
 include $_SERVER['DOCUMENT_ROOT']."/laba/validation.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/table/assessmentstable.php";
-$select=$_POST['select'];
-$date=$_POST['date'];
-$idstud=$_COOKIE['idstud'];
+include $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
+$subject=safetyrequest($pdo,$_GET['subject']);
+$date=safetyrequest($pdo,$_GET['date']);
+$idstud=safetyrequest($pdo,$_GET['idstud']);
 $check=validation($date,'date');
-if($check)
-{
-    delete1($pdo,$date,$select,$idstud);
-    header("Location: /laba/assessments.php?idstud=$idstud");
-}
-else
-{
-
-    header("Location: /laba/assessments.php?idstud=$idstud");
-}
+delete1($pdo,$date,$subject,$idstud);
+header("Location: /laba/assessments.php?idstud=$idstud");
 ?>

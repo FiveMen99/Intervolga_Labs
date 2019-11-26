@@ -15,7 +15,16 @@ background-color: rgba(60, 61, 74, 0.78);
 color: white;
 }
 
+.edit{
+	padding-top: 10px;
+	padding-right: 10px;
+}
 
+.cross{
+	padding-top: 10px;
+	padding-left: 10px;
+
+}
 .red{
 	color:red;
 }

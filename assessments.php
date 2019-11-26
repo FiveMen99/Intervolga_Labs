@@ -43,21 +43,35 @@ background-size: 100%;	}
     </div>
     <p class="jumbotron-heading  mt-4">Ваша успеваемость</p>
     <?php
-   checkonadmin($_SESSION['isadmin']);
-    @$idstud=@$_GET['idstud'];
-    $result=readbyidstud($pdo,$idstud);
-    printtableassigment($pdo,$idstud,$result);
-    if ((@$_GET['error'])==1)
+    if(checkonadmin($_SESSION['isadmin']))
     {
-        echo '<div id="errors" style="color:red;">Данные об этом пользователе были уже удалены</div><hr>';
+        echo '<table>
+                  <tr><th><button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">Добавить</button></th></tr>
+              </table>       
+             ';
     }
-    if ((@$_GET['error'])==2)
+    @$idstud=@$_GET['idstud'];
+   printtableassigment($pdo,$idstud);
+   $error=@$_GET['error'];
+    if (($error)==1)
+    {
+        echo '<div id="errors" style="color:red;">Данные об этой оценке уже были удалены</div><hr>';
+    }
+    if (($error)==2)
     {
         echo '<div id="errors" style="color:red;">Проверьте валидность данных</div><hr>';
     }
+    if (($error)==3)
+    {
+        echo '<div id="errors" style="color:red;">Отправте запрос по человечески</div><hr>';
+    }
+
     ?>
+  <form action="students.php" method="post" class="form-signin">
+      <button class="btn btn-primary p-1 " >Назад</button>
+  </form>
   </section>
-    <form action="crudassessments/create.php" method="post" class="form-signin">
+    <form action="crudassessments/create.php?idstud=<?php echo $idstud;?>" method="post" class="form-signin">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -82,60 +96,6 @@ background-size: 100%;	}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                         <button class="btn btn-primary" id="button">Добавить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <form action="crudassessments/update.php" method="post" class="form-signin">
-        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Изменить оценку</h4>
-                    </div>
-                    <div class="modal-body">
-                        <select name="select" class="form-control" >
-                            <?php
-                            $result = read1($pdo);
-                            selectsubject($result);
-                            ?>
-                        </select>
-                        <select name="assessments" class="form-control margin" >
-                            <option value="5">5</a></option>
-                            <option value="4">4</a></option>
-                            <option value="3">3</a></option>
-                            <option value="2">2</a></option>
-                        </select>
-                        <input type="text" class="form-control margin" id="date1" name="date" placeholder="Дата" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button class="btn btn-primary" id="button1">Изменить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <form action="crudassessments/delete.php" method="post" class="form-signin">
-        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Удалить оценку</h4>
-                    </div>
-                    <div class="modal-body">
-                        <select name="select" class="form-control" >
-                            <?php
-                            $result = read1($pdo);
-                            selectsubject($result);
-                            ?>
-                        </select>
-                        <input type="text" class="form-control margin" id="date2" name="date" placeholder="Дата" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button class="btn btn-primary" id="button2">Удалить</button>
                     </div>
                 </div>
             </div>
