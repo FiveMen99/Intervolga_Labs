@@ -1,7 +1,7 @@
 <?php
 function validation ($string,$type){
     $string=htmlspecialchars($string);
-    if($type=='email')
+    if($type=='email')//валидация email
     {
         $length=strlen($string);
         $regular='/^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/';
@@ -12,7 +12,7 @@ function validation ($string,$type){
         }
         else return 0;
     }
-    if($type=='password')
+    if($type=='password')//валидация пароля
     {
         $length=strlen($string);
         if($length>=5 && $length<=15)
@@ -22,7 +22,7 @@ function validation ($string,$type){
         else return 0;
 
     }
-    if($type=='date')
+    if($type=='date')//валидация даты
     {
         $length=strlen($string);
         $regular='/([01-9])+\.([01-9])+\.([01-9]){4}/';

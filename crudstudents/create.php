@@ -8,34 +8,44 @@ $lastname =safetyrequest($pdo,@$_POST['lastnamec']);
 $class=safetyrequest($pdo,@$_POST['classc']);
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/laba/uploads/");
 define("DB_DIR","uploads/");
-
-if(!empty($name)&&!empty($surname)&&!empty($lastname))
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    if (!empty($_FILES["myfile"]))
+    if (!empty($name) && !empty($surname) && !empty($lastname))
     {
-        $myfile = $_FILES["myfile"];
-        if ($myfile["error"] != UPLOAD_ERR_OK)
+        if (!empty($_FILES["myfile"]))
         {
-            echo "Сир что-то не так";
-            exit;
+            $myfile = $_FILES["myfile"];
+            if ($myfile["error"] != UPLOAD_ERR_OK)
+            {
+                echo "Сир что-то не так";
+                exit;
+            }
+            $namefile = preg_replace("/[^A-Z0-9._-]/i", "_", $myfile["name"]);
+            $i = 0;
+            $parts = pathinfo($namefile);
+            while (file_exists(UPLOAD_DIR . $namefile))
+            {
+                $i++;
+                $namefile = $parts["filename"] . "_" . $i . "." . $parts["extension"];
+            }
+            $success = move_uploaded_file($myfile["tmp_name"], UPLOAD_DIR . $namefile);
+            chmod(UPLOAD_DIR . $namefile, 0644);
+            if (!$success)
+            {
+                echo "Сир что-то не так1";
+                exit;
+            }
         }
-        $namefile = preg_replace("/[^A-Z0-9._-]/i", "_", $myfile["name"]);
-        $i = 0;
-        $parts = pathinfo($namefile);
-        while (file_exists(UPLOAD_DIR . $namefile))
-        {
-            $i++;
-            $namefile = $parts["filename"] . "_" . $i . "." . $parts["extension"];
-        }
-        $success = move_uploaded_file($myfile["tmp_name"], UPLOAD_DIR . $namefile);
-        chmod(UPLOAD_DIR . $namefile,0644);
-        if (!$success)
-        {
-            echo "Сир что-то не так1";
-            exit;
-        }
+        else header("Location: /laba/students.php?error=4");
+        return 0;
     }
+    else header("Location: /laba/students.php?error=2");
+    return 0;
 }
+else header("Location: /laba/students.php?error=2");
+return 0;
+
+
 $file=DB_DIR.$namefile;
 create($pdo,$surname,$name,$lastname,$class,$file);
 header("Location: /laba/students.php");

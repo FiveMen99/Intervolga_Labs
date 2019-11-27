@@ -53,6 +53,7 @@ background-size: 100%;	}
       }
       printtable($pdo);
       $error=safetyrequest($pdo,@$_GET['error']);
+      //Проверка на ошибки
       if (($error)==1)
       {
          echo '<div id="errors" style="color:red;">Данные об этом пользователе были уже удалены</div><hr>';

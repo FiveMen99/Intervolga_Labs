@@ -46,11 +46,8 @@ background-size: 100%;	}
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 font-weight-normal">Проверьте мою защиту от негодяев</h1>
             </div>
-            <div class="form-label-group">
-                <input type="text" name="request" class="form-control margin" placeholder="Что-то любое" id="request">
-            </div>
-            <button class="btn btn-lg btn-primary btn-block margin" type="submit" name='signin' id="button">Проверить
-            </button>
+            <div class="form-label-group"><input type="text" name="request" class="form-control margin" placeholder="Что-то любое" id="request"></div><!-- Форма проверки--!>
+            <button class="btn btn-lg btn-primary btn-block margin" type="submit" name='signin' id="button">Проверить</button>
         </form>
         <?php
         echo @$request;

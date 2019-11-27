@@ -17,21 +17,4 @@ function safetyrequest($pdo,$request)
 
     return $request;
 }
-//// Проверка js инъекции
-//$r='\'); var x = 3+5; alert("Я поломал твой код" + x); alert(\'';
-//$r=safetyrequest($pdo,$r);
-//$code='<script>alert(\''.$r.'\')</script>';
-//echo $code;
-//// Проверка html экранирования
-//$test='&lt;<div class="container">
-//      <h1 ” class="jumbotron-heading  mt-4">МОУ Лицей №9</h1>
-//      <p class="lead text-muted">"Учиться надо всю жизнь, до последнего дыхания!"</p>
-//    </div>';
-//$test=safetyrequest($pdo,$test);
-//echo $test;
-//
-////Проверка SQL
-//$test='ЛАлалалаалалл SELECT мсчстмсчтмсчтчсмт CREATE';
-//$test=safetyrequest($pdo,$test);
-//echo $test;
 

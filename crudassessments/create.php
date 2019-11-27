@@ -8,15 +8,16 @@ $assessments=safetyrequest($pdo,$_POST['assessments']);
 $date=safetyrequest($pdo,$_POST['date']);
 $idstud=safetyrequest($pdo,$_GET['idstud']);
 $check=validation($date,'date');
-
-if($check)
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    create1($pdo, $date, $idstud, $select, $assessments);
-    header("Location: /laba/assessments.php?idstud=$idstud");
-}
-else
-{
+    if ($check)
+    {
+        create1($pdo, $date, $idstud, $select, $assessments);
+        header("Location: /laba/assessments.php?idstud=$idstud");
+    } else
+    {
 
-   header("Location: /laba/assessments.php?idstud=$idstud");
+        header("Location: /laba/assessments.php?idstud=$idstud");
+    }
 }
 ?>
