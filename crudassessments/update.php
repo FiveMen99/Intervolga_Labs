@@ -8,7 +8,7 @@ $assessments=safetyrequest($pdo,$_POST['assessments']);
 $date=safetyrequest($pdo,$_GET['date']);
 $idstud=safetyrequest($pdo,$_GET['idstud']);
 $check=validation($date,'date');
-$result=readbyfull($pdo,$idstud,$subject,$date);
+$result=asses_readbyfull($pdo,$idstud,$subject,$date);
 $row = $result->fetch(PDO::FETCH_ASSOC);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         if ($check)
         {
-            update1($pdo, $date, $idstud, $subject, $assessments);
+            asses_update($pdo, $date, $idstud, $subject, $assessments);
             header("Location: /laba/assessments.php?idstud=$idstud");
         } else
         {

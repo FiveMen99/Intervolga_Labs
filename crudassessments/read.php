@@ -10,7 +10,7 @@ function printtableassigment($pdo,$idstud)
     }
     else $lengthdate=0;
     $lengthsubject=count($subject);
-    $result=readbyidstud($pdo,$idstud);
+    $result=asses_readbyidstud($pdo,$idstud);
     $i=0;
     //Цикл построения массива
     while ($row = $result->fetch(PDO::FETCH_ASSOC))

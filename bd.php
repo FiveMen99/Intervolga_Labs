@@ -12,7 +12,7 @@ try
 }
 catch(PDOException $e)
 {
-    die("не могу");
+   // die("не могу");
 }
 $pdo->prepare('SET NAMES utf8')->execute();
 ?>

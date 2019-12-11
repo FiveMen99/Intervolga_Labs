@@ -36,14 +36,14 @@ background-size: 100%;	}
         }
       }
     </style>
-  <section class="jumbotron text-center">
+  <section class="jumbotron text-center" id="search">
     <div class="container">
       <h1 ” class="jumbotron-heading  mt-4">МОУ Лицей №9</h1>
       <p class="lead text-muted">"Учиться надо всю жизнь, до последнего дыхания!"</p>
     </div>
     <p class="jumbotron-heading  mt-4">Ваша успеваемость</p>
     <?php
-    if(checkonadmin($_SESSION['isadmin']))
+    if($_SESSION['isadmin'])
     {
         echo '<table>
                   <tr><th><button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">Добавить</button></th></tr>
@@ -81,7 +81,7 @@ background-size: 100%;	}
                     <div class="modal-body">
                         <select name="select" class="form-control" >
                             <?php
-                            $result = read1($pdo);
+                            $result = subject_read($pdo);
                             selectsubject($result);
                             ?>
                         </select>

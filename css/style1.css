@@ -14,7 +14,18 @@ padding: 10px;
 background-color: rgba(60, 61, 74, 0.78);
 color: white;
 }
-
+.maps{
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	right:10px;
+	margin: 50px;
+}
+.h1map{
+	position: absolute;
+	right:90px;
+	margin:20px;
+}
 .edit{
 	padding-top: 10px;
 	padding-right: 10px;
@@ -43,7 +54,9 @@ color: white;
 .lft {
 text-align: left;
 }
-
+.block{
+	display:none;
+}
 
 .overlay {
 	position: absolute;

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if ($check)
     {
-        create1($pdo, $date, $idstud, $select, $assessments);
+        asses_create($pdo, $date, $idstud, $select, $assessments);
         header("Location: /laba/assessments.php?idstud=$idstud");
     } else
     {

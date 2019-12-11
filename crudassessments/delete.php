@@ -7,6 +7,6 @@ $subject=safetyrequest($pdo,$_GET['subject']);
 $date=safetyrequest($pdo,$_GET['date']);
 $idstud=safetyrequest($pdo,$_GET['idstud']);
 $check=validation($date,'date');
-delete1($pdo,$date,$subject,$idstud);
+asses_delete($pdo,$date,$subject,$idstud);
 header("Location: /laba/assessments.php?idstud=$idstud");
 ?>

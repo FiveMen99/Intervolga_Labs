@@ -7,7 +7,7 @@ $surname=safetyrequest($pdo,@$_POST['surname']);
 $name =safetyrequest($pdo,@$_POST['name']);
 $lastname =safetyrequest($pdo,@$_POST['lastname']);
 $class=safetyrequest($pdo,@$_POST['class']);
-$result=readbyidstud1($pdo,$idstud);
+$result=stud_readbyidstud($pdo,$idstud);
 $row = $result->fetch(PDO::FETCH_ASSOC);
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/laba/uploads/");
 define("DB_DIR","uploads/");
@@ -41,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     exit;
                 }
                 $file = DB_DIR . $namefile;
-                $result = readbyidstud1($pdo, $idstud);//Удаляем старый файл
+                $result = stud_readbyidstud($pdo, $idstud);//Удаляем старый файл
                 $row = $result->fetch(PDO::FETCH_ASSOC);
                 define("DELETE", $_SERVER['DOCUMENT_ROOT'] . "/laba/");
                 $link = $row['file'];
                 $link1 = DELETE . $link;
                 unlink("$link1");
             } else header("Location: /laba/students.php?error=4");
-            update($pdo, $idstud, $surname, $name, $lastname, $class, $file);//обновляем данные
+            stud_update($pdo, $idstud, $surname, $name, $lastname, $class, $file);//обновляем данные
             header("Location: /laba/students.php");
         } else header("Location: /laba/students.php?error=1");
     }

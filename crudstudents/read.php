@@ -1,7 +1,7 @@
 <?php
-function printtable($pdo)
+
+function printtable($pdo,$result)
 {
-    $result=readsortclass($pdo);//получаем данные
     $i=0;
     echo '<table border="1">';
     while($row=$result->fetch(PDO::FETCH_ASSOC))//цикл вывода таблицы

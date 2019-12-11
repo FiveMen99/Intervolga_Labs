@@ -15,9 +15,15 @@ echo'
       <li class="nav-item active">
         <a class="nav-link" href="testsafetyrequest.php">Защита запросов<span class="sr-only">(current)</span></a>
       </li>
-    </ul>';
+    </ul>
+    <div class="form-inline mt-2 mt-md-0">
+        <input class="form-inline mt-2 mt-md-0 form-control mr-sm-2"  name="search"   type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="searchbutton" type="submit">Search</button>
+      </div>';
 session_start();
+
 if(isset($_SESSION['id'])){
+    echo '<a class="nav-link" style="color:#ffffff">'.$_SESSION['id'].'<span class="sr-only">(current)</span></a>';
     echo '
     <form action="singout.php" class="form-inline my-2 my-lg-0">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">
@@ -29,7 +35,7 @@ else
 {
     echo '
     <form action="authorization.php" class="form-inline my-2 my-lg-0">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+      <button class="btn btn-secondary my-2 my-sm-0" style="margin-left:10px; " type="submit">
       Sign in
       </button>
     </form>';
@@ -38,3 +44,4 @@ else
   </div>
   </nav>'
   ?>
+<script src="/laba/js/ajax/search.js"></script>

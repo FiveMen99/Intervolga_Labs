@@ -1,4 +1,5 @@
 <?php
+require_once("authorizationcheck.php");
 require_once ("safetyrequest.php");
 require_once ("bd.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST')

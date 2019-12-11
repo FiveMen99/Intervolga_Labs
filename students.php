@@ -37,21 +37,23 @@ background-size: 100%;	}
         }
       }
     </style>
-  <section class="jumbotron text-center">
+  <section class="jumbotron text-center" id="search">
+      <div  class="h1map"><h5>Как доехать?</h5></div>
+      <div id="map" class="maps"></div>
     <div class="container-fluid">
       <h1 class="jumbotron-heading  mt-5">МОУ Лицей №9</h1>
       <p class="lead text-muted">"Учиться надо всю жизнь, до последнего дыхания!"</p>
-      <a>Добро пожаловать пользователь под именем</a>
     </div>
       <?php
-      if(checkonadmin($_SESSION['isadmin']))
+      if($_SESSION['isadmin'])
       {
       echo '<table class="margin">
           <tr><th><button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">Добавить</button></th></tr>
       </table>
       ';
       }
-      printtable($pdo);
+      $result=stud_readsortclass($pdo);//получаем данные
+      printtable($pdo,$result);
       $error=safetyrequest($pdo,@$_GET['error']);
       //Проверка на ошибки
       if (($error)==1)
@@ -101,11 +103,21 @@ background-size: 100%;	}
               </div>
           </div>
       </form>
+  </body>
   </section>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="/laba/js/validation/fioc.js"></script>
-</body>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=1366c9de-63bc-4b4e-a59d-0951cce81f8b&lang=ru_RU" type="text/javascript"></script>
+  <script type="text/javascript">
+      ymaps.ready(init);
+      function init(){
+          var myMap = new ymaps.Map("map", {
+              center: [48.751352, 44.510060],
+              zoom: 16
+          });
+      }
+  </script>
 </html>

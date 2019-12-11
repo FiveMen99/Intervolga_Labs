@@ -1,10 +1,10 @@
 <?php
-function read1 ($pdo)
+function subject_read ($pdo)
 {
     $result = $pdo->query('SELECT * FROM subject');
     return $result;
 }
-function readbyidsub($pdo,$idsub)
+function subject_readbyidsub($pdo,$idsub)
 {
     $result = $pdo->prepare('SELECT * FROM `subject` WHERE idsub=:idsub');
     $result->execute(array('idsub' => $idsub));

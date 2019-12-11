@@ -1,45 +1,70 @@
 <?php
+function getCaptcha($token)
+{
+    $answer=file_get_contents(("https://www.google.com/recaptcha/api/siteverify?secret=6LcOFcUUAAAAAC1jIiqVkf5vylT2uCiFu2Rkt1Lf&response={$token}"));
+    $answer=json_decode($answer);
+    return $answer;
+}
 include("bd.php");
 include_once("table/userstable.php");
 include_once ("safetyrequest.php");
 include("validation.php");
-$validationlogin=validation($_POST['login'],'email');
-$validationpassword=validation($_POST['password'],'password');
+
+$validationemail=validation(@$_POST['email'],'email');
+$validationpassword=validation(@$_POST['password'],'password');
+$answer = getCaptcha((@$_POST['g-recaptcha-responce']));
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    if($validationlogin==0)
+    if (!strlen($_POST['email'])==0)
     {
-        setcookie('error1','Что-то с логином не так!');
-        header("Location: registration.php");
-        return 0;
-    }
-    if($validationpassword==0)
-    {
-        setcookie('error1','Что-то с  паролем не так!');
-        header("Location: registration.php");
-        return 0;
-    }
-    if (isset($_POST['login']) && isset($_POST['password']))
-    {
-        $login = safetyrequest($pdo,$_POST['login']);
-        $password = password_hash(safetyrequest($pdo,$_POST['password']), PASSWORD_DEFAULT);
-        $isadmin = 0;
-        $result=readbylogin($pdo,$login);
-        $row1 = $result->fetch(PDO::FETCH_ASSOC);
-        if (empty($row1))
+        if (!strlen($_POST['password'])==0)
         {
-            create($pdo,$login,$password,$isadmin);
-            setcookie('success', '1');
-        } else
-        {
-            setcookie('error1', 'Такой логин уже существует');
+            if ($validationemail)
+            {
+                if ($validationpassword)
+                {
+                    $isadmin = 0;
+                    $email = safetyrequest($pdo, $_POST['email']);
+                    $password = password_hash(safetyrequest($pdo, $_POST['password']), PASSWORD_DEFAULT);
+                    $result = user_readbylogin($pdo, $email);
+                    $row1 = $result->fetch(PDO::FETCH_ASSOC);
+                    if (empty($row1))
+                    {
+                        if ($answer->success == true && $answer->score > 0.5)//Проверка на робота
+                        {
+                            stud_create($pdo, $email, $password, $isadmin);
+                        echo '1';
+                        }
+                        else
+                        {
+                            echo "Проблемы с автоматической капчей.Попробуйте еще раз или перезагрузите страницу.";
+                        }
+                    } else
+                    {
+                        echo "Такой Email уже существует";
+                    }
+                } else
+                {
+                    echo "У пароля длина от 5 до 15 символов";
+                }
+            } else
+            {
+                echo "Проблема с правильностью введенного Email.Почта пишется примерно так examples@mail.ru, также почта должна иметь длина от 5 до 15 символов";
+            }
         }
+        else
+        {
+            echo "Введите пароль";
+        }
+    }
+    else
+    {
+        echo "Введите почту";
     }
 }
 else
 {
-    header("Location: authorization.php");
+    echo "Данные нужно указывать POST'ом";
 }
-header("Location: registration.php");
 ?>
 

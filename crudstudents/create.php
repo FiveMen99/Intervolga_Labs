@@ -30,24 +30,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             }
             $success = move_uploaded_file($myfile["tmp_name"], UPLOAD_DIR . $namefile);
             chmod(UPLOAD_DIR . $namefile, 0644);
+
             if (!$success)
             {
                 echo "Сир что-то не так1";
                 exit;
             }
         }
-        else header("Location: /laba/students.php?error=4");
+        else
+        {
+            header("Location: /laba/students.php?error=4");
+            return 0;
+        }
+
+    }
+    else
+    {
+        header("Location: /laba/students.php?error=2");
         return 0;
     }
-    else header("Location: /laba/students.php?error=2");
+}
+else
+{
+    header("Location: /laba/students.php?error=2");
     return 0;
 }
-else header("Location: /laba/students.php?error=2");
-return 0;
 
-
-$file=DB_DIR.$namefile;
-create($pdo,$surname,$name,$lastname,$class,$file);
+$file=DB_DIR . $namefile;
+stud_create($pdo,$surname,$name,$lastname,$class,$file);
 header("Location: /laba/students.php");
 ?>
 

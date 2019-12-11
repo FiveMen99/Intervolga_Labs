@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 27 2019 г., 00:13
+-- Время создания: Дек 11 2019 г., 22:18
 -- Версия сервера: 10.4.6-MariaDB
 -- Версия PHP: 7.3.9
 
@@ -41,7 +41,7 @@ CREATE TABLE `assessments` (
 --
 
 INSERT INTO `assessments` (`id`, `date`, `idstud`, `idsub`, `assessments`) VALUES
-(28, '03.09.2019', 45, 3, 3);
+(40, '11.12.2019', 51, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`idstud`, `surname`, `name`, `lastname`, `class`, `file`) VALUES
-(45, 'Макаренко', 'Никита', 'Степанович', '04А', 'uploads/34_2.jpg');
+(51, 'Никита', 'Макаренко', 'Фапин', '11А', 'uploads/36_13.jpg');
 
 -- --------------------------------------------------------
 
@@ -101,14 +101,14 @@ INSERT INTO `students` (`idstud`, `surname`, `name`, `lastname`, `class`, `file`
 
 CREATE TABLE `subject` (
   `idsub` int(11) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL
+  `subname` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `subject`
 --
 
-INSERT INTO `subject` (`idsub`, `name`) VALUES
+INSERT INTO `subject` (`idsub`, `subname`) VALUES
 (1, 'Математика'),
 (2, 'Русский язык'),
 (3, 'История');
@@ -133,8 +133,12 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `login`, `password`, `isadmin`) VALUES
 (16, 'admin@admin.ru', '$2y$10$AxbNkYmGMFiJgI1x9G/8/eJkkWeyLZHiIliWASal4OWU1Wc.CvXpu', 1),
 (18, 'laba@mail.ru', '$2y$10$3sl3QEIddpaYJicTj9wrkudEIeU.00YhJgnnr9ptCBAZ6TS1pESve', 0),
-(19, 'nikita@mail.ru', '$2y$10$T8er7Boc/URE..sBlhyTX.IJg5pGbdpBiUkIkL0PX4Qo0fYjrWxmG', 0),
-(20, '123@mail.ru', '$2y$10$ijD4KUSSU0m7yhPEvi2Uwuh21Z8qpJECK3xTKDRryelUqDP/1eB5i', 0);
+(61, 'vk552571102', '', 1),
+(64, 'nik@mail.ru', '$2y$10$dHOVW6H3YJ9yqkSCsRDu2Oo7tbS14QF4lnnleWytVnH6Z1frOL7yi', 0),
+(65, 'asda@mail.ru', '$2y$10$dBqk5tNG9TODjKk/iRNhaO6S4a.ed0WLZ2Izf7cYvSySC7ZW56SP.', 0),
+(66, '135@mail.ru', '$2y$10$F9YVRfh1Ltp9yNTggW9IeebG2FStp67.okTTNAhB3Sj.2HSI3rmFm', 0),
+(67, '567@mail.ru', '$2y$10$7wDgTcXCG66yEIFW.YWlEu7Fcm7tpKh4td9wSXKVaS39qlvSoIcwy', 0),
+(68, '67890@mail.ru', '$2y$10$msSCQ3IAA/Khiuwe5iCO..fD3fDuFjRBHbrskiR/CyeqCeqd8vBcG', 0);
 
 --
 -- Индексы сохранённых таблиц
@@ -173,13 +177,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `assessments`
 --
 ALTER TABLE `assessments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT для таблицы `students`
 --
 ALTER TABLE `students`
-  MODIFY `idstud` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idstud` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT для таблицы `subject`
@@ -191,7 +195,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
