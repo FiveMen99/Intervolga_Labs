@@ -38,7 +38,7 @@ background-size: 100%;	}
         }
       }
   </style>
-    <section class="jumbotron text-center">
+    <section class="jumbotron text-center" id="search">
         <div class="container">
             <h1 ” class="jumbotron-heading  mt-4">МОУ Лицей №9</h1>
             <p class="lead text-muted">"Учиться надо всю жизнь, до последнего дыхания!"</p>

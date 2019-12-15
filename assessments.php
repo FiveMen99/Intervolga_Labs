@@ -81,7 +81,8 @@ background-size: 100%;	}
                     <div class="modal-body">
                         <select name="select" class="form-control" >
                             <?php
-                            $result = subject_read($pdo);
+                            $subject=new subject();
+                            $result = $subject->read($pdo);
                             selectsubject($result);
                             ?>
                         </select>

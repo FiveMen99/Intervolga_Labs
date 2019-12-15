@@ -52,7 +52,8 @@ background-size: 100%;	}
       </table>
       ';
       }
-      $result=stud_readsortclass($pdo);//получаем данные
+      $students=new students();
+      $result=$students->readsortclass($pdo);//Получаем данные
       printtable($pdo,$result);
       $error=safetyrequest($pdo,@$_GET['error']);
       //Проверка на ошибки

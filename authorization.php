@@ -64,8 +64,7 @@ background-size: 100%;	}
   <script src="/laba/js/captcha.js"></script>
   <!--<script src="/laba/js/validation/email.js"></script>
   <script src="/laba/js/validation/password.js"></script>--!>
-
-    <script src="/laba/js/ajax/authorization.js"></script>
+<script src="/laba/js/ajax/authorization.js"></script>
 
 </body>
 </html>

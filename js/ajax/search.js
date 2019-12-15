@@ -11,9 +11,6 @@ function ajaxpostsearch(params)
     xhr.onreadystatechange = function() {//Вызывает функцию при смене состояния.
         if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
         {
-            var check=xhr.responseText;
-            var success=1;
-
             document.getElementById('search').innerHTML = xhr.responseText;
 
         }

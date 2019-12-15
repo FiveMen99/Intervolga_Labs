@@ -1,9 +1,11 @@
 <?php
 include_once("bd.php");
 include_once("table/namecomandsinsqltable.php");
+
 function safetyrequest($pdo,$request)
 {
-    $result=readwords($pdo);
+    $words=new namecomandsinsql();
+    $result=$words->readwords($pdo);
     $arrayofhtmltag=['&','<','>'];
     $arraytrueofhtmltag=['&amp','&lt','&gt'];
     while ($row = $result->fetch(PDO::FETCH_ASSOC))//Если находим ключевое слово SQL делаем пробел

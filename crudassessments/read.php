@@ -2,6 +2,7 @@
 require_once ("function.php");
 function printtableassigment($pdo,$idstud)
 {
+    $assessments= new assessment();
     $date = getmydate($pdo, $idstud);
     $subject=getmysubject($pdo);
     if(!empty($date))
@@ -10,8 +11,7 @@ function printtableassigment($pdo,$idstud)
     }
     else $lengthdate=0;
     $lengthsubject=count($subject);
-    $result=asses_readbyidstud($pdo,$idstud);
-    $i=0;
+    $result=$assessments->readbyidstud($pdo,$idstud);
     //Цикл построения массива
     while ($row = $result->fetch(PDO::FETCH_ASSOC))
     {
@@ -43,11 +43,9 @@ function printtableassigment($pdo,$idstud)
                 <th>Средняя оценка</th>
             </tr>';
     $i=0;
-    $j=0;
     while($i<$lengthsubject)
     {
         $idsub=$i+1;
-        $idsub1=$idsub+1;
         $summ = 0;
         $quantity = 0;
         echo '<tr><th>' . $subject[$i] . '</th>';

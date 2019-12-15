@@ -27,7 +27,8 @@ function sort_date($a_new, $b_new) {
 }
 function getmysubject($pdo)//Предметы ученика в массиве
 {
-    $result=subject_read($pdo);
+    $subject=new subject();
+    $result=$subject->read($pdo);
     $i=0;
     while ($row = $result->fetch(PDO::FETCH_ASSOC))
     {
@@ -38,7 +39,8 @@ function getmysubject($pdo)//Предметы ученика в массиве
 }
 function getmydate($pdo,$idstud)//на вход id stud на выходе все даты, на которых он получал оценки
 {
-    $result=asses_readbyidstud($pdo,$idstud);
+    $assessmets=new assessment();
+    $result=$assessmets->readbyidstud($pdo,$idstud);
     $i=0;
     while ($row = $result->fetch(PDO::FETCH_ASSOC))
     {

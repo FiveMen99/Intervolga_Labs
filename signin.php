@@ -11,6 +11,7 @@ include_once ("safetyrequest.php");
 require_once('table/userstable.php');
 $validationlogin=validation($_POST['email'],'email');
 $validationpassword=validation($_POST['password'],'password');
+$user=new user();
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!strlen($_POST['email'])==0)
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
                 if ($validationpassword)
                 {
-                    $result = user_readbylogin($pdo, safetyrequest($pdo, $_POST['email']));
+                    $result = $user->readbylogin($pdo, safetyrequest($pdo, $_POST['email']));
                     $row1 = $result->fetch(PDO::FETCH_ASSOC);
                     if (!empty($row1))
                     {

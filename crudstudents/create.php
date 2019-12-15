@@ -6,6 +6,7 @@ $surname =safetyrequest($pdo,@$_POST['surnamec']);
 $name = safetyrequest($pdo,@$_POST['namec']);
 $lastname =safetyrequest($pdo,@$_POST['lastnamec']);
 $class=safetyrequest($pdo,@$_POST['classc']);
+$students=new students();
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/laba/uploads/");
 define("DB_DIR","uploads/");
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -57,7 +58,7 @@ else
 }
 
 $file=DB_DIR . $namefile;
-stud_create($pdo,$surname,$name,$lastname,$class,$file);
+$students->create($pdo,$surname,$name,$lastname,$class,$file);
 header("Location: /laba/students.php");
 ?>
 

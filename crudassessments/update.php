@@ -4,11 +4,12 @@ include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/table/assessmentstable.php";
 include $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
 $subject=safetyrequest($pdo,$_GET['subject']);
-$assessments=safetyrequest($pdo,$_POST['assessments']);
+$assessmentsnumber=safetyrequest($pdo,$_POST['assessments']);
 $date=safetyrequest($pdo,$_GET['date']);
 $idstud=safetyrequest($pdo,$_GET['idstud']);
 $check=validation($date,'date');
-$result=asses_readbyfull($pdo,$idstud,$subject,$date);
+$assessments=new assessment();
+$result=$assessments->readbyfull($pdo,$idstud,$subject,$date);
 $row = $result->fetch(PDO::FETCH_ASSOC);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         if ($check)
         {
-            asses_update($pdo, $date, $idstud, $subject, $assessments);
+            $assessments->update($pdo, $date, $idstud, $subject, $assessmentsnumber);
             header("Location: /laba/assessments.php?idstud=$idstud");
         } else
         {
