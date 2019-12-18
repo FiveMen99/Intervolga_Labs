@@ -1,10 +1,4 @@
 <?php
-function getCaptcha($token)
-{
-    $answer=file_get_contents(("https://www.google.com/recaptcha/api/siteverify?secret=6LcOFcUUAAAAAC1jIiqVkf5vylT2uCiFu2Rkt1Lf&response={$token}"));
-    $answer=json_decode($answer);
-    return $answer;
-}
 include("bd.php");
 include ("validation.php");
 include_once ("safetyrequest.php");
@@ -28,9 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     {
                         if (password_verify(safetyrequest($pdo, $_POST['password']), $row1['password']))
                         {
-                            $answer = getCaptcha((@$_POST['g-recaptcha-responce']));
-                            if ($answer->success == true && $answer->score > 0.5)//Проверка на робота
-                            {
                                 echo "1";
                                 session_start();
                                 $_SESSION['id'] = $row1['login'];
@@ -41,11 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 {
                                     $_SESSION['isadmin'] = 0;
                                 }
-                            }
-                            else
-                            {
-                                echo "Проблемы с автоматической капчей.Попробуйте еще раз или перезагрузите страницу.";
-                            }
+
                         }
                         else
                         {

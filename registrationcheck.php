@@ -1,10 +1,10 @@
 <?php
-function getCaptcha($token)
-{
-    $answer=file_get_contents(("https://www.google.com/recaptcha/api/siteverify?secret=6LcOFcUUAAAAAC1jIiqVkf5vylT2uCiFu2Rkt1Lf&response={$token}"));
-    $answer=json_decode($answer);
-    return $answer;
-}
+//function getCaptcha($token)
+//{
+//    $answer=file_get_contents(("https://www.google.com/recaptcha/api/siteverify?secret=6LcOFcUUAAAAAC1jIiqVkf5vylT2uCiFu2Rkt1Lf&response={$token}"));
+//    $answer=json_decode($answer);
+//    return $answer;
+//}
 include("bd.php");
 include_once("table/userstable.php");
 include_once ("safetyrequest.php");
@@ -12,7 +12,7 @@ include("validation.php");
 $user=new user();
 $validationemail=validation(@$_POST['email'],'email');
 $validationpassword=validation(@$_POST['password'],'password');
-$answer = getCaptcha((@$_POST['g-recaptcha-responce']));
+//$answer = getCaptcha((@$_POST['g-recaptcha-responce']));
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!strlen($_POST['email'])==0)
@@ -30,15 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     $row1 = $result->fetch(PDO::FETCH_ASSOC);
                     if (empty($row1))
                     {
-                        if ($answer->success == true && $answer->score > 0.5)//Проверка на робота
-                        {
+//                        if ($answer->success == true && $answer->score > 0.5)//Проверка на робота
+//                        {
                             $user->create($pdo, $email, $password, $isadmin);
                         echo '1';
-                        }
-                        else
-                        {
-                            echo "Проблемы с автоматической капчей.Попробуйте еще раз или перезагрузите страницу.";
-                        }
+//                         }
+//                        else
+//                        {
+//                            echo "Проблемы с автоматической капчей.Попробуйте еще раз или перезагрузите страницу.";
+//                        }
                     } else
                     {
                         echo "Такой Email уже существует";

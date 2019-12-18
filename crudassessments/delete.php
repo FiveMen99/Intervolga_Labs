@@ -1,13 +1,10 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT']."/laba/validation.php";
-include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
-include $_SERVER['DOCUMENT_ROOT']."/laba/table/assessmentstable.php";
-include $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
-$subject=safetyrequest($pdo,$_GET['subject']);
-$date=safetyrequest($pdo,$_GET['date']);
-$idstud=safetyrequest($pdo,$_GET['idstud']);
-$check=validation($date,'date');
+include_once $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/laba/table/assessmentstable.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/laba/safetyrequest.php";
+$id=$_POST['id'];
+$idstud=$_POST['idstud'];
 $assessments=new assessment();
-$assessments->delete($pdo,$date,$subject,$idstud);
-header("Location: /laba/assessments.php?idstud=$idstud");
+$assessments->delete($pdo,$id);
+//include_once $_SERVER['DOCUMENT_ROOT']."/laba/crudassessments/read.php";
 ?>

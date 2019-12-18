@@ -1,14 +1,13 @@
-window.onload=function () {
+function authorization()
+{
+    var params;
+    var href="authorization.php";
+    ajaxpostbody(params,href);
+}
+function authorizationcheck() {
     var email=document.querySelector('input[name=email]');
     var password=document.querySelector('input[name=password]');
-    var recaptcha=document.querySelector('input[name=g-recaptcha-responce]');
-    document.querySelector('#button').onclick=function () {
-        var params='email=' + email.value + '&' + 'password=' + password.value + '&' + 'g-recaptcha-responce=' + recaptcha.value;
-        ajaxregistration(params);
-    };
-}
-function ajaxregistration(params)
-{
+    var params='email=' + email.value + '&' + 'password=' + password.value;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", 'signin.php', true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -16,16 +15,35 @@ function ajaxregistration(params)
         if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
         {
             var check=xhr.responseText;
-            var success=1;
+            var success="1";
             if(check==success)
             {
-                window.location.assign('students.php');
+                var params;
+                var href="crudstudents/read.php";
+                ajaxpostheader(params);
+                ajaxpostbody(params,href);
+                document.getElementById('body').innerHTML=xhr.responseText;
             }
             else
             {
                 document.getElementById('errorblock').style.display = 'block';
                 document.getElementById('error').innerHTML=xhr.responseText;
             }
+        }
+    };
+    xhr.send(params);
+}
+function authorizationout() {
+    var params=0;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'signout.php', true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {//Вызывает функцию при смене состояния.
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+        {
+            var href="authorization.php";
+            ajaxpostbody(params,href);
+            ajaxpostheader(params);
         }
     };
     xhr.send(params);

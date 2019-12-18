@@ -19,14 +19,14 @@ class assessment
         $result = $pdo->prepare('INSERT INTO `assessments` (`id`, `date`, `idstud`, `idsub`, `assessments`) VALUES (NULL, :date, :idstud, :select, :assessments)');
         $result->execute(array('date' => $date,'idstud'=>$idstud, 'select'=>$select, 'assessments'=>$assessments));
     }
-    function delete($pdo,$date,$select,$idstud)
+    function delete($pdo,$id)
     {
-        $result = $pdo->prepare('DELETE FROM `assessments` WHERE date=:date AND idsub=:select AND idstud=:idstud');
-        $result->execute(array('date' => $date,'select'=>$select, 'idstud'=>$idstud));
+        $result = $pdo->prepare('DELETE FROM `assessments` WHERE id=:id');
+        $result->execute(array('id' => $id));
     }
-    function update($pdo,$date,$idstud,$select,$assessments)
+    function update($pdo,$assessments,$id)
     {
-        $result = $pdo->prepare('UPDATE `assessments` SET assessments=:assessments WHERE idstud=:idstud AND idsub=:select AND date=:date');
-        $result->execute(array('date' => $date,'idstud'=>$idstud, 'select'=>$select, 'assessments'=>$assessments));
+        $result = $pdo->prepare('UPDATE `assessments` SET assessments=:assessments WHERE id=:id');
+        $result->execute(array('assessments'=>$assessments,'id'=>$id));
     }
 }

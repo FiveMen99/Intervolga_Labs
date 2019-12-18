@@ -30,7 +30,7 @@ if  (!empty($_GET ['code']))
             $_SESSION['isadmin'] = 0;
         }
     }
-    header("Location: students.php");
+    header("Location: index.php");
 }
 else
 {

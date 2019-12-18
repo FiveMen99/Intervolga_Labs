@@ -1,5 +1,57 @@
 <?php
-require_once ("function.php");
+include $_SERVER['DOCUMENT_ROOT']."/laba/bd.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/laba/table/assessmentstable.php";
+include $_SERVER['DOCUMENT_ROOT']."/laba/table/subjecttable.php";
+$idstud=$_POST['idstud'];
+if(session_id() == '') {
+    session_start();
+}
+function sort_date($a_new, $b_new) {
+    $a_new = strtotime($a_new);
+    $b_new = strtotime($b_new);
+    return $a_new - $b_new;
+}
+function selectsubject($result)//получение всех предметом и вывод их в селекте
+{
+    $i=1;
+    while($row=$result->fetch(PDO::FETCH_ASSOC))
+    {
+
+        $subject=$row['subname'];
+        echo '<option value='.$i.'>'.$subject.'</a>';//'.$subject.'
+        $i=$i+1;
+    }
+}
+function getmysubject($pdo)//Предметы ученика в массиве
+{
+    $subject=new subject();
+    $result=$subject->read($pdo);
+    $i=0;
+    while ($row = $result->fetch(PDO::FETCH_ASSOC))
+    {
+        $mass[$i] = $row['subname'];
+        $i++;
+    }
+    return $mass;
+}
+function getmydate($pdo,$idstud)//на вход id stud на выходе все даты, на которых он получал оценки
+{
+    $assessmets=new assessment();
+    $result=$assessmets->readbyidstud($pdo,$idstud);
+    $i=0;
+    while ($row = $result->fetch(PDO::FETCH_ASSOC))
+    {
+        $mass[$i] = $row['date'];
+        $i++;
+    }
+    if (!empty($mass))
+    {
+        $mass = array_unique($mass);
+        usort($mass, "sort_date");
+        return $mass;
+    }
+}
+printtableassigment($pdo,$idstud);
 function printtableassigment($pdo,$idstud)
 {
     $assessments= new assessment();
@@ -26,9 +78,51 @@ function printtableassigment($pdo,$idstud)
             $i++;
         }
         $mass[$idsubject][$iddate]=$row['assessments'];
-
+        $id[$idsubject][$iddate]=$row['id'];
     }
     //Рисуем перввую горизонталь с датами
+    echo '
+            <div class="container">
+              <h1 class="jumbotron-heading"">МОУ Лицей №9</h1>
+              <p class="lead text-muted">"Учиться надо всю жизнь, до последнего дыхания!"</p>
+            </div>
+        ';
+    if($_SESSION['isadmin']==1)
+    {
+
+        echo '
+            <table>
+                  <tr><th><button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal1">Добавить</button></th></tr>
+              </table>
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Добавить оценку</h4>
+                    </div>
+                    <div class="modal-body">
+                        <select name="select" id="subject" class="form-control" >';
+        $subjectname = new subject();
+        $result = $subjectname->read($pdo);
+        selectsubject($result);
+        echo '
+                        </select>
+                        <select id="assessmets" class="form-control margin" >
+                            <option value="5"><a>5</a></option>
+                            <option value="4"><a>4</a></option>
+                            <option value="3"><a>3</a></option>
+                            <option value="2"><a>2</a></option>
+                        </select>
+                        <input type="text" class="form-control margin" id="date" name="date" placeholder="Дата" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button class="btn btn-primary" id="button" onclick="createassessments(' . $idstud . ')" data-dismiss="modal">Добавить</button>
+                    </div>
+                </div>
+            </div>
+        </div>';
+    }
     echo '
         <table>
             <tr>
@@ -61,13 +155,12 @@ function printtableassigment($pdo,$idstud)
                     $quantity++;
                 }
                 //Если админ, то показываем Изменить и Удалить
-                if(checkonadmin($_SESSION['isadmin']))
+                if($_SESSION['isadmin']==1)
                 {
                         echo '
                     <th><a class="edit" data-toggle="modal" data-target="#my' . $i . 'm' . $j . '"><img src="/laba/uploads/edit.png"  width="8"></a>
                      <a class="center">' . $mass[$i + 1][$j] . '</a>    
-                      <a href="crudassessments/delete.php?idstud=' . $idstud . '&date=' . $date[$j] . '&subject=' . $idsub . '" class="cross"><img src="/laba/uploads/cross.png"  width="8"></a></th>
-                      <form action="crudassessments/update.php?idstud=' . $idstud . '&date=' . $date[$j] . '&subject=' . $idsub . '" method="post" class="form-signin">
+                      <a href="##"  class="cross" onclick="deleteassessments('.$id[$i+1][$j].','.$idstud.')"><img src="/laba/uploads/cross.png"  width="8"></a></th>
                             <div class="modal fade" id="my' . $i . 'm' . $j . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -75,22 +168,22 @@ function printtableassigment($pdo,$idstud)
                                             <h4 class="modal-title" id="myModalLabel">Изменить оценку</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <select name="assessments" class="form-control" >
-                                                <option value="5">5</a></option>
-                                                <option value="4">4</a></option>
-                                                <option value="3">3</a></option>
-                                                <option value="2">2</a></option>
+                                            <select id="assessments'.$id[$i+1][$j].'" class="form-control margin" >
+                                                 <option value="5">5</option>
+                                                <option value="4">4</option>
+                                                <option value="3">3</option>
+                                                <option value="2">2</option>
                                             </select>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                                            <button class="btn btn-primary" id="button1">Изменить</button>
+                                            <button class="btn btn-primary" id="button1" onclick="updateassessments('.$id[$i+1][$j].','.$idstud.')" data-dismiss="modal">Изменить</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                      </form>';
-                }
+                            </div>   
+                                  ';
+                 }
                 //Если не админ, то показываем оценку
                 else
                 {
@@ -133,5 +226,7 @@ function printtableassigment($pdo,$idstud)
         $i++;
         echo '</tr>';
     }
-    echo '</table>';
+    echo '</table>
+    <button onclick="students()" class="btn btn-primary p-1">Назад</button>  
+    <div id="error"></div>  ';
 }

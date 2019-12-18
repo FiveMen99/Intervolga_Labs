@@ -18,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $myfile = $_FILES["myfile"];
             if ($myfile["error"] != UPLOAD_ERR_OK)
             {
-                echo "Сир что-то не так";
-                exit;
+                //echo "Сир что-то не так";
             }
             $namefile = preg_replace("/[^A-Z0-9._-]/i", "_", $myfile["name"]);
             $i = 0;
@@ -30,36 +29,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 $namefile = $parts["filename"] . "_" . $i . "." . $parts["extension"];
             }
             $success = move_uploaded_file($myfile["tmp_name"], UPLOAD_DIR . $namefile);
-            chmod(UPLOAD_DIR . $namefile, 0644);
+            //chmod(UPLOAD_DIR . $namefile, 0644);
 
             if (!$success)
             {
-                echo "Сир что-то не так1";
-                exit;
+               //echo "Сир что-то не так1";
             }
         }
         else
         {
-            header("Location: /laba/students.php?error=4");
-            return 0;
+            //echo "Нет файла";
         }
 
     }
     else
     {
-        header("Location: /laba/students.php?error=2");
-        return 0;
+       // echo "1";
     }
 }
 else
 {
-    header("Location: /laba/students.php?error=2");
-    return 0;
+   // echo "1";
 }
 
 $file=DB_DIR . $namefile;
 $students->create($pdo,$surname,$name,$lastname,$class,$file);
-header("Location: /laba/students.php");
 ?>
 
 
